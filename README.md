@@ -1,6 +1,20 @@
 # extract_qc_ont
+# 
+The only requirement are Python and bash.
+
+The script has been tested on the json-report from MinION Mk1B with flowcell FLO-MIN114 and kit SQK-16S114-24 with the following software versions:
+MinKNOW
+24.06.10
+Bream
+8.0.9
+Configuration
+6.0.13
+Dorado
+7.4.12
+MinKNOW Core
+6.0.8
+
 # Quick start
-Requirement:Python and bash.
 1. Clone the repository
 2. Run like this with the path to the json report file  
 '''
@@ -20,4 +34,5 @@ The script creates a tsv file containing information about:
 - basecalled_pass_bases
 
 The resulting file content can easily be pasted into an excel sheet. 
+
 
