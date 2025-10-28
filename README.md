@@ -3,7 +3,9 @@
 Requirement:Python and bash.
 1. Clone the repository
 2. Run like this with the path to the json report file  
-'''./extract_qc.sh report_FBA58159_20250220_1521_c969a030.json'''
+'''
+./extract_qc.sh report_xxxxx_xxxx_xxxxx_xxxx.json
+'''
 
 #  Output
 The script creates a tsv file containing information about:
