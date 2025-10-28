@@ -19,7 +19,7 @@ if [[ $time_to_quit == "TRUE" ]];then
 fi
 echo $convert_qc_path
 cat $my_json | jq | grep "protocol_group_id" | head -n1  >> extract_qc_temp/extract_qc_temp_2.txt
-echo "Löpnummer: ," >> extract_qc_temp_2.txt
+echo "Löpnummer: ," >> extract_qc_temp/extract_qc_temp_2.txt
 cat $my_json | jq | grep "STOPPED_PROTOCOL_ENDED" -A 40 > "extract_qc_temp/extract_qc_temp.txt" && 
 cat $my_json | jq | grep "flow_cell_id" | head -n1  >> "extract_qc_temp/extract_qc_temp_2.txt"
 echo "plexnivå_skip: ," >> "extract_qc_temp/extract_qc_temp_2.txt"
