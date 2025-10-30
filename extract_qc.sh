@@ -30,6 +30,11 @@ grep "basecalled_pass_read_count" extract_qc_temp/extract_qc_temp.txt >> "extrac
 grep "basecalled_fail_read_count" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt"
 grep "basecalled_fail_bases" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
 grep "basecalled_pass_bases" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
+grep "start_time" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
+grep "\"end_time\":" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
+cat $my_json | jq | grep "model_type" | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
+# saved as comment if we want this value later. Needs modification as the strufcture is not like the others.
+#cat  "$my_json" | jq | grep "barcoding_configuration" -A 10 -B 10 | grep "barcoding_kits" -A 1 | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
 
 sed  's/^[[:space:]]*//g' extract_qc_temp/extract_qc_temp_2.txt | tr -d '"' > "extract_qc_temp/extract_qc_temp_3.txt"
 sed -i 's/:/,/' extract_qc_temp/extract_qc_temp_3.txt

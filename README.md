@@ -4,19 +4,6 @@ The only requirement are Python and bash.
 
 The script has been tested on the json-report from MinION Mk1B with flowcell FLO-MIN114 and kit SQK-16S114-24 with the following software versions:  
 MinKNOW  
-24.06.10  
-Bream  
-8.0.9  
-Configuration  
-6.0.13  
-Dorado  
-7.4.12  
-MinKNOW Core  
-6.0.8  
-  
-and  
-  
-MinKNOW  
 25.05.14  
 Bream  
 8.5.4  
@@ -45,6 +32,9 @@ The script creates a tsv file containing information about:
 - basecalled_fail_read_count
 - basecalled_fail_bases
 - basecalled_pass_bases
+- start_time
+- end_time
+- model_name
 
 The resulting file content can easily be pasted into an excel sheet. 
 

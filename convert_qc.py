@@ -29,6 +29,9 @@ def main(input_file, output_file):
     lopnummer = data.get('Löpnummer', '')
     flow_cell = data.get('user_specified_flow_cell_id', '')
     plexnivå = data.get('plexnivå_skip', '')
+    start_time = data.get('start_time', '')
+    end_time = data.get('start_time', '')
+    model_type = data.get('model_type', "")
 
     estimated_bases = convert_to_float(data.get('estimated_selected_bases', ''))
     read_count = convert_to_float(data.get('read_count', ''))
@@ -51,14 +54,16 @@ def main(input_file, output_file):
         "Körning", "Löpnummer", "Flödescell", "Plexnivå",
         "Estimated Bases (Mb)", "Reads generated M", "Estimated N50 (kb)",
         "Reads called Pass (M)", "Reads called Fail (k)",
-        "Bases called  Failed (Mb)", "Bases called  Pass  (Gb)"
+        "Bases called  Failed (Mb)", "Bases called  Pass  (Gb)", "start_time",
+        "end_time", "model_type"
     ]
 
     values = [
         protocol_group_id, lopnummer, flow_cell, plexnivå,
         estimated_bases_mb, reads_generated_m, estimated_n50_kb,
         reads_called_pass_m, reads_called_fail_k,
-        bases_called_failed_mb, bases_called_pass_gb
+        bases_called_failed_mb, bases_called_pass_gb, start_time,
+        end_time, model_type
     ]
 
     # Skriv ut TSV
