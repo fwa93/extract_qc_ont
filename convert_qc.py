@@ -30,7 +30,7 @@ def main(input_file, output_file):
     flow_cell = data.get('user_specified_flow_cell_id', '')
     plexnivå = data.get('plexnivå_skip', '')
     start_time = data.get('start_time', '')
-    end_time = data.get('start_time', '')
+    end_time = data.get('end_time', '')
     model_type = data.get('model_type', "")
 
     estimated_bases = convert_to_float(data.get('estimated_selected_bases', ''))
