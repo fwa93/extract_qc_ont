@@ -15,11 +15,20 @@ MinKNOW Core
 6.5.14  
 
 # Quick start
+./extract_qc.sh
+        Usage: bash ./extract_qc.sh -d <experiment_directory> -j <json_filepath>
+        Either -d o -j are required
+
 1. Clone the repository
-2. Run like this with the path to the json report file  
-'''  
-./extract_qc.sh report_xxxxx_xxxx_xxxxx_xxxx.json  
-'''  
+2. Run like this with the path to the json report file or the directory containing the json-file 
+```  
+./extract_qc.sh -j report_xxxxx_xxxx_xxxxx_xxxx.json  
+```  
+Or
+```
+./extract_qc.sh -d <directory containing the report*json>  
+```
+
 
 #  Output
 The script creates a tsv file containing information about:
