@@ -4,13 +4,69 @@ set -eo pipefail
 trap 'exit_status="$?" && echo Failed on line: $LINENO at command: $BASH_COMMAND && echo "exit status $exit_status"' ERR
 
 #check that the script was called with 1 argument
-if [ $# -ne 1 ]
+if [ $# -gt 2 ]
 then
-echo "Usage: bash $0 <path_to_json_file>"
-exit 1
+                echo "
+                    Usage: bash $0 -d <experiment_directory> -j <json_filepath>
+                    Either -d or -j are required but both can not be used.
+                    "
+                exit 1
 fi
 
-my_json="$1"
+# Defaults
+experiment_dir=""
+json_file=""
+
+# Hantera flaggor med getopts
+while getopts "d:j:" opt; do
+    case $opt in
+        d)
+            experiment_dir="$OPTARG"
+            echo "run folder $experiment_dir"
+            if [ -d "$experiment_dir" ]; then
+                my_json=$(ls "$experiment_dir/"*.json | head -n 1)
+            else
+                echo "
+                    Usage: bash $0 -d <experiment_directory> -j <json_filepath>
+                    Either -d or -j are required
+                    "
+                exit 1
+            fi
+            ;;
+        j)
+            json_file="$OPTARG"
+            echo "json $json_file"
+            my_json="$json_file"
+            if [ -f "$json_file" ]; then
+                my_json="$json_file"
+            else
+                echo "
+                    Usage: bash $0 -d <experiment_directory> -j <json_filepath>
+                    Either -d or -j are required
+                    $json_file is not a file
+                    "
+                exit 1
+            fi
+            ;;
+        *)
+            echo "
+                 Usage: bash $0 -d <experiment_directory> -j <json_filepath>
+                 Either -d or -j are required
+                 "
+            exit 1
+            ;;
+    esac
+done
+
+# Kontrollera att båda flaggorna angavs
+if [[ -z "$experiment_dir" && -z "$json_file" ]]; then
+  echo "
+        Error.
+        Usage: bash $0 -d <experiment_directory> -j <json_filepath>
+        Either -d o -j are required
+        "
+  exit 1
+fi
 convert_qc_path=$(dirname $0)
 mkdir extract_qc_temp || time_to_quit="TRUE"
 if [[ $time_to_quit == "TRUE" ]];then
