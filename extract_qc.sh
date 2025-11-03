@@ -24,7 +24,13 @@ while getopts "d:j:" opt; do
             experiment_dir="$OPTARG"
             echo "run folder $experiment_dir"
             if [ -d "$experiment_dir" ]; then
-                my_json=$(ls "$experiment_dir/"*.json | head -n 1)
+                if [ $(ls -1 "${experiment_dir}/"*json | wc -l) -eq 1 ]; then
+                    my_json=$(ls -1 "$experiment_dir/report_"*.json | head -n 1)
+                    real_experiment_path=$(realpath "$experiment_dir")
+                else
+                    echo "Only one json report with pattern report_*.json is allowed in the run folder. Check if there really is only one json and if there are several. There must be exactly one"
+                    exit 1
+                fi
             else
                 echo "
                     Usage: bash $0 -d <experiment_directory> -j <json_filepath>
@@ -39,6 +45,7 @@ while getopts "d:j:" opt; do
             my_json="$json_file"
             if [ -f "$json_file" ]; then
                 my_json="$json_file"
+                real_experiment_path=$(realpath $(dirname "$my_json"))
             else
                 echo "
                     Usage: bash $0 -d <experiment_directory> -j <json_filepath>
@@ -58,7 +65,7 @@ while getopts "d:j:" opt; do
     esac
 done
 
-# Kontrollera att båda flaggorna angavs
+# Check that only one flag is used
 if [[ -z "$experiment_dir" && -z "$json_file" ]]; then
   echo "
         Error.
@@ -67,6 +74,7 @@ if [[ -z "$experiment_dir" && -z "$json_file" ]]; then
         "
   exit 1
 fi
+
 convert_qc_path=$(dirname $0)
 mkdir extract_qc_temp || time_to_quit="TRUE"
 if [[ $time_to_quit == "TRUE" ]];then
@@ -91,7 +99,7 @@ grep "\"end_time\":" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract
 cat $my_json | jq | grep "model_type" | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
 # saved as comment if we want this value later. Needs modification as the strufcture is not like the others.
 #cat  "$my_json" | jq | grep "barcoding_configuration" -A 10 -B 10 | grep "barcoding_kits" -A 1 | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
-
+echo "Experiment_path,${real_experiment_path}," >> "extract_qc_temp/extract_qc_temp_2.txt"
 sed  's/^[[:space:]]*//g' extract_qc_temp/extract_qc_temp_2.txt | tr -d '"' > "extract_qc_temp/extract_qc_temp_3.txt"
 sed -i 's/:/,/' extract_qc_temp/extract_qc_temp_3.txt
 sed -i 's/ //' extract_qc_temp/extract_qc_temp_3.txt

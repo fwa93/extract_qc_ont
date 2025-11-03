@@ -32,6 +32,7 @@ def main(input_file, output_file):
     start_time = data.get('start_time', '')
     end_time = data.get('end_time', '')
     model_type = data.get('model_type', "")
+    Experiment_path = data.get('Experiment_path')
 
     estimated_bases = convert_to_float(data.get('estimated_selected_bases', ''))
     read_count = convert_to_float(data.get('read_count', ''))
@@ -54,7 +55,7 @@ def main(input_file, output_file):
         "Körning", "Löpnummer", "Flödescell", "Plexnivå",
         "Estimated Bases (Mb)", "Reads generated M", "Estimated N50 (kb)",
         "Reads called Pass (M)", "Reads called Fail (k)",
-        "Bases called  Failed (Mb)", "Bases called  Pass  (Gb)", "start_time",
+        "Bases called  Failed (Mb)", "Bases called  Pass  (Gb)", "Resultat_lokalisation", "start_time",
         "end_time", "model_type"
     ]
 
@@ -62,7 +63,7 @@ def main(input_file, output_file):
         protocol_group_id, lopnummer, flow_cell, plexnivå,
         estimated_bases_mb, reads_generated_m, estimated_n50_kb,
         reads_called_pass_m, reads_called_fail_k,
-        bases_called_failed_mb, bases_called_pass_gb, start_time,
+        bases_called_failed_mb, bases_called_pass_gb, Experiment_path, start_time,
         end_time, model_type
     ]
 
