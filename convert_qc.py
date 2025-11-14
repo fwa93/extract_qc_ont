@@ -1,5 +1,6 @@
 import sys
 import csv
+import re
 
 def parse_input_file(filename):
     data = {}
@@ -26,8 +27,12 @@ def main(input_file, output_file):
 
     # Extrahera och räkna om värden
     protocol_group_id = data.get('protocol_group_id', '').rstrip(',')
-    lopnummer = data.get('Löpnummer', '')
+    pattern = r'^(\w+)_(\d+)_(\d+)\s*$'
+    match = re.match(pattern, protocol_group_id)
+    lopnummer = match.group(2) if match else "none"
+    print(str(lopnummer))
     flow_cell = data.get('user_specified_flow_cell_id', '')
+    print(str(flow_cell))
     plexnivå = data.get('plexnivå_skip', '')
     start_time = data.get('start_time', '')
     end_time = data.get('end_time', '')

@@ -33,6 +33,8 @@ Or
 #  Output
 The script creates a tsv file containing information about:
 - protocol_group_id
+- Löpnummer. This is a number e.g., a serial number of protocol_group_id. Example: if protocol_group_id is Run_30_250202 then '30' is reported.  
+ If this pattern (character_digits_digits) is not used for protocol_group_id 'Löpnummer' will become "none"
 - flow_cell_id
 - estimated_selected_bases
 - read_count
