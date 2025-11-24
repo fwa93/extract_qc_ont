@@ -20,14 +20,15 @@ MinKNOW Core
         Either -d o -j are required
 
 1. Clone the repository
-2. Run like this with the path to the json report file or the directory containing the json-file 
+2. Run like this with the path to the json report file or the directory containing the json-file. Output dir is required 
 ```  
-./extract_qc.sh -j report_xxxxx_xxxx_xxxxx_xxxx.json  
+./extract_qc.sh -j report_xxxxx_xxxx_xxxxx_xxxx.json  -o <results dir>
 ```  
 Or
 ```
-./extract_qc.sh -d <directory containing the report*json>  
-```
+./extract_qc.sh -d <directory containing the report*json> -o <results dir>  
+```  
+
 
 
 #  Output
