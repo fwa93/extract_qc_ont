@@ -30,31 +30,31 @@ def main(input_file, output_file):
     pattern = r'^(\w+)_(\d+)_(\d+)\s*$'
     match = re.match(pattern, protocol_group_id)
     lopnummer = match.group(2) if match else "none"
-    print(str(lopnummer))
-    flow_cell = data.get('user_specified_flow_cell_id', '')
-    print(str(flow_cell))
-    plexnivå = data.get('plexnivå_skip', '')
-    start_time = data.get('start_time', '')
-    end_time = data.get('end_time', '')
-    model_type = data.get('model_type', "")
+    #print(str(lopnummer))
+    flow_cell = data.get('user_specified_flow_cell_id', 'none')
+    #print(str(flow_cell))
+    plexnivå = data.get('plexnivå_skip', 'none')
+    start_time = data.get('start_time', 'none')
+    end_time = data.get('end_time', 'none')
+    model_type = data.get('model_type', "none")
     Experiment_path = data.get('Experiment_path')
 
-    estimated_bases = convert_to_float(data.get('estimated_selected_bases', ''))
-    read_count = convert_to_float(data.get('read_count', ''))
-    n50 = convert_to_float(data.get('n50', ''))
-    basecalled_pass_read_count = convert_to_float(data.get('basecalled_pass_read_count', ''))
-    basecalled_fail_read_count = convert_to_float(data.get('basecalled_fail_read_count', ''))
-    basecalled_fail_bases = convert_to_float(data.get('basecalled_fail_bases', ''))
-    basecalled_pass_bases = convert_to_float(data.get('basecalled_pass_bases', ''))
+    estimated_bases = convert_to_float(data.get('estimated_selected_bases', 'none'))
+    read_count = convert_to_float(data.get('read_count', 'none'))
+    n50 = convert_to_float(data.get('n50', 'none'))
+    basecalled_pass_read_count = convert_to_float(data.get('basecalled_pass_read_count', 'none'))
+    basecalled_fail_read_count = convert_to_float(data.get('basecalled_fail_read_count', 'none'))
+    basecalled_fail_bases = convert_to_float(data.get('basecalled_fail_bases', 'none'))
+    basecalled_pass_bases = convert_to_float(data.get('basecalled_pass_bases', 'none'))
 
     # Omräkningar
-    estimated_bases_mb = f"{estimated_bases / 1_000_000:.2f}" if estimated_bases is not None else ''
-    reads_generated_m = f"{read_count / 1_000_000:.3f}" if read_count is not None else ''
-    estimated_n50_kb = f"{n50 / 1000:.2f}" if n50 is not None else ''
-    reads_called_pass_m = f"{basecalled_pass_read_count / 1_000_000:.3f}" if basecalled_pass_read_count is not None else ''
-    reads_called_fail_k = f"{basecalled_fail_read_count / 1_000:.3f}" if basecalled_fail_read_count is not None else ''
-    bases_called_failed_mb = f"{basecalled_fail_bases / 1_000_000:.3f}" if basecalled_fail_bases is not None else ''
-    bases_called_pass_gb = f"{basecalled_pass_bases / 1_000_000_000:.3f}" if basecalled_pass_bases is not None else ''
+    estimated_bases_mb = f"{estimated_bases / 1_000_000:.2f}" if estimated_bases is not None else 'none'
+    reads_generated_m = f"{read_count / 1_000_000:.3f}" if read_count is not None else 'none'
+    estimated_n50_kb = f"{n50 / 1000:.2f}" if n50 is not None else 'none'
+    reads_called_pass_m = f"{basecalled_pass_read_count / 1_000_000:.3f}" if basecalled_pass_read_count is not None else 'none'
+    reads_called_fail_k = f"{basecalled_fail_read_count / 1_000:.3f}" if basecalled_fail_read_count is not None else 'none'
+    bases_called_failed_mb = f"{basecalled_fail_bases / 1_000_000:.3f}" if basecalled_fail_bases is not None else 'none'
+    bases_called_pass_gb = f"{basecalled_pass_bases / 1_000_000_000:.3f}" if basecalled_pass_bases is not None else 'none'
 
     headers = [
         "Körning", "Löpnummer", "Flödescell", "Plexnivå",

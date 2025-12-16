@@ -99,25 +99,31 @@ if [[ $time_to_quit == "TRUE" ]];then
     echo "please remove extract_qc_temp before running the script"
     exit 1
 fi
+# A function that handles failed greps.
+fallback() {
+    local echo_this="$1"
+    echo  "${echo_this}:" >> "extract_qc_temp/extract_qc_temp_2.txt"
+}
+
 echo $convert_qc_path
-cat $my_json | jq | grep "protocol_group_id" | head -n1  >> extract_qc_temp/extract_qc_temp_2.txt
+cat $my_json | jq | grep "protocol_group_id" | head -n1  >> extract_qc_temp/extract_qc_temp_2.txt || fallback "NO_protocol_group_id"
 echo "Löpnummer: ," >> extract_qc_temp/extract_qc_temp_2.txt
 cat $my_json | jq | grep "STOPPED_PROTOCOL_ENDED" -A 40 > "extract_qc_temp/extract_qc_temp.txt" && 
-cat $my_json | jq | grep "flow_cell_id" | head -n1  >> "extract_qc_temp/extract_qc_temp_2.txt"
-echo "plexnivå_skip: ," >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "estimated_selected_bases" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "read_count" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt"
-cat $my_json | jq | grep "n50" | tail -n1  >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "basecalled_pass_read_count" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "basecalled_fail_read_count" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "basecalled_fail_bases" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "basecalled_pass_bases" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "start_time" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
-grep "\"end_time\":" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
-cat $my_json | jq | grep "model_type" | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
+cat $my_json | jq | grep "flow_cell_id" | head -n1  >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_flow_cell_id"
+echo "plexnivå_skip: ," >> "extract_qc_temp/extract_qc_temp_2.txt" 
+grep "estimated_selected_bases" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_estimated_selected_bases"
+grep "read_count" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_read_count"
+cat $my_json | jq | grep "n50" | tail -n1  >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_n50"
+grep "basecalled_pass_read_count" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_basecalled_pass_read_count"
+grep "basecalled_fail_read_count" extract_qc_temp/extract_qc_temp.txt >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_basecalled_fail_read_count"
+grep "basecalled_fail_bases" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"  || fallback  "NO_basecalled_fail_bases"
+grep "basecalled_pass_bases" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_basecalled_pass_bases"
+grep "start_time" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback  "NO_start_time"
+grep "\"end_time\":" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_end_time"
+cat $my_json | jq | grep "model_type" | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback  "NO_model_type"
 # saved as comment if we want this value later. Needs modification as the strufcture is not like the others.
 #cat  "$my_json" | jq | grep "barcoding_configuration" -A 10 -B 10 | grep "barcoding_kits" -A 1 | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
-echo "Experiment_path,${real_experiment_path}," >> "extract_qc_temp/extract_qc_temp_2.txt"
+echo "Experiment_path,${real_experiment_path}," >> "extract_qc_temp/extract_qc_temp_2.txt"  || fallback NO_experiment_path
 sed  's/^[[:space:]]*//g' extract_qc_temp/extract_qc_temp_2.txt | tr -d '"' > "extract_qc_temp/extract_qc_temp_3.txt"
 sed -i 's/:/,/' extract_qc_temp/extract_qc_temp_3.txt
 sed -i 's/ //' extract_qc_temp/extract_qc_temp_3.txt

@@ -14,6 +14,17 @@ Dorado
 MinKNOW Core  
 6.5.14  
 
+&
+MinKNOW  
+24.06.10  
+Bream  
+8.0.9  
+Configuration  
+6.0.13  
+Dorado  
+7.4.12  
+MinKNOW Core  
+6.0.8  
 # Quick start
 ./extract_qc.sh
         Usage: bash ./extract_qc.sh -d <experiment_directory> -j <json_filepath>
@@ -48,6 +59,7 @@ The script creates a tsv file containing information about:
 - end_time
 - model_name
 
+Fields that are not found in the json file will be "none" in the resulting table.
 The resulting file content can easily be pasted into an excel sheet. 
 
 

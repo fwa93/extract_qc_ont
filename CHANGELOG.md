@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## v0.5.0 20251216
+
+### Added
+- Compatibility with minknow 24.06.10. Script wont crash because if it does not find the terms in the jsons. Should work with most report jsons from minknow.
+### Fixed
+### Changed
 ## v0.4.0 20251124
 
 ### Added
