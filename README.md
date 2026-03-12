@@ -3,28 +3,18 @@
 The only requirement are Python and bash.
 
 The script has been tested on the json-report from MinION Mk1B with flowcell FLO-MIN114 and kit SQK-16S114-24 with the following software versions:  
-MinKNOW  
-25.05.14  
-Bream  
-8.5.4  
-Configuration  
-6.5.7  
-Dorado  
-7.9.8  
-MinKNOW Core  
-6.5.14  
 
-&
-MinKNOW  
-24.06.10  
-Bream  
-8.0.9  
-Configuration  
-6.0.13  
-Dorado  
-7.4.12  
-MinKNOW Core  
-6.0.8  
+MinKNOW
+25.09.16
+Bream
+8.8.3
+Configuration
+6.8.9
+Dorado
+7.11.2
+MinKNOW Core
+6.8.11
+
 # Quick start
 ./extract_qc.sh
         Usage: bash ./extract_qc.sh -d <experiment_directory> -j <json_filepath>
