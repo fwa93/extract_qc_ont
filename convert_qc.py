@@ -34,9 +34,10 @@ def main(input_file, output_file):
     flow_cell = data.get('user_specified_flow_cell_id', 'none')
     #print(str(flow_cell))
     plexnivå = data.get('plexnivå_skip', 'none')
-    start_time = data.get('start_time', 'none')
-    end_time = data.get('end_time', 'none')
+    start_time = data.get('start_time', 'none').split(".",1)[0]
+    end_time = data.get('end_time', 'none').split(".",1)[0]
     model_type = data.get('model_type', "none")
+    barcoding_kits = data.get('barcoding_kits',"none")
     Experiment_path = data.get('Experiment_path')
 
     estimated_bases = convert_to_float(data.get('estimated_selected_bases', 'none'))
@@ -61,7 +62,7 @@ def main(input_file, output_file):
         "Estimated Bases (Mb)", "Reads generated M", "Estimated N50 (kb)",
         "Reads called Pass (M)", "Reads called Fail (k)",
         "Bases called  Failed (Mb)", "Bases called  Pass  (Gb)", "Resultat_lokalisation", "start_time",
-        "end_time", "model_type"
+        "end_time", "model_type", "barcoding_kits"
     ]
 
     values = [
@@ -69,7 +70,7 @@ def main(input_file, output_file):
         estimated_bases_mb, reads_generated_m, estimated_n50_kb,
         reads_called_pass_m, reads_called_fail_k,
         bases_called_failed_mb, bases_called_pass_gb, Experiment_path, start_time,
-        end_time, model_type
+        end_time, model_type, barcoding_kits
     ]
 
     # Skriv ut TSV

@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added fallback function for searchterms that are not found.
+- Added barcoding_kits
 ### Fixed
+- Fixed time suffix
 ### Changed
 ## v0.5.0 20251216
 

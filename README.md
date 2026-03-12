@@ -48,7 +48,7 @@ The script creates a tsv file containing information about:
 - start_time
 - end_time
 - model_name
-
+- barcoding_kits
 Fields that are not found in the json file will be "none" in the resulting table.
 The resulting file content can easily be pasted into an excel sheet. 
 

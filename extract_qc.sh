@@ -121,12 +121,12 @@ grep "basecalled_pass_bases" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> 
 grep "start_time" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback  "NO_start_time"
 grep "\"end_time\":" extract_qc_temp/extract_qc_temp.txt | head -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback "NO_end_time"
 cat $my_json | jq | grep "model_type" | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt" || fallback  "NO_model_type"
-# saved as comment if we want this value later. Needs modification as the strufcture is not like the others.
-#cat  "$my_json" | jq | grep "barcoding_configuration" -A 10 -B 10 | grep "barcoding_kits" -A 1 | tail -n 1 >> "extract_qc_temp/extract_qc_temp_2.txt"
-echo "Experiment_path,${real_experiment_path}," >> "extract_qc_temp/extract_qc_temp_2.txt"  || fallback NO_experiment_path
+echo -e "barcoding_kits,$(cat "$my_json" | jq | grep "barcoding_configuration" -A 10 -B 10 |  grep -Pzo '(?s)barcoding_kits.*?\[.*?\]' | tail -z -n1 |  tr '\0' '\n' | grep -v "\[" | grep -v "\]" | tr '\n' ';')," >> extract_qc_temp/extract_qc_temp_2.txt  || fallback "NO_barcoding_kits"
+# >> "extract_qc_temp/extract_qc_temp_2.txt"
+echo "Experiment_path,${real_experiment_path}," >> "extract_qc_temp/extract_qc_temp_2.txt"  || fallback "NO_experiment_path"
 sed  's/^[[:space:]]*//g' extract_qc_temp/extract_qc_temp_2.txt | tr -d '"' > "extract_qc_temp/extract_qc_temp_3.txt"
 sed -i 's/:/,/' extract_qc_temp/extract_qc_temp_3.txt
-sed -i 's/ //' extract_qc_temp/extract_qc_temp_3.txt
+sed -i 's/ //g' extract_qc_temp/extract_qc_temp_3.txt
 
 echo "created extract_qc_temp/extract_qc_temp_3.txt. Content:"
 cat "extract_qc_temp/extract_qc_temp_3.txt"
