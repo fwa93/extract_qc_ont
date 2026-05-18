@@ -2,18 +2,17 @@
 # 
 The only requirement are Python and bash.
 
-The script has been tested on the json-report from MinION Mk1B with flowcell FLO-MIN114 and kit SQK-16S114-24 and SQK-RBK114-24 with the following software versions:  
-
-MinKNOW  
-25.09.16  
-Bream  
-8.8.3  
-Configuration  
-6.8.9  
-Dorado  
-7.11.2  
-MinKNOW Core  
-6.8.11  
+The script has been tested on the json-report from MinION Mk1B with flowcell FLO-MIN114 and kit SQK-MAB114-24 with the following software versions:  
+MinKNOW
+25.09.16
+Bream
+8.8.3
+Configuration
+6.8.9
+Dorado
+7.11.2
+MinKNOW Core
+6.8.11
 
 # Quick start
 ./extract_qc.sh
@@ -47,7 +46,7 @@ The script creates a tsv file containing information about:
 - basecalled_pass_bases
 - start_time
 - end_time
-- model_name
+- basecalling_model_version
 - barcoding_kits
 Fields that are not found in the json file will be "none" in the resulting table.
 The resulting file content can easily be pasted into an excel sheet. 

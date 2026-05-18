@@ -123,7 +123,7 @@ grep "basecalled_fail_bases" "$my_temp/extract_qc_temp.txt" | head -n 1 >> "$my_
 grep "basecalled_pass_bases" "$my_temp/extract_qc_temp.txt" | head -n 1 >> "$my_temp/extract_qc_temp_2.txt" || fallback "NO_basecalled_pass_bases"
 grep "start_time" "$my_temp/extract_qc_temp.txt" | head -n 1 >> "$my_temp/extract_qc_temp_2.txt" || fallback  "NO_start_time"
 grep "\"end_time\":" "$my_temp/extract_qc_temp.txt" | head -n 1 >> "$my_temp/extract_qc_temp_2.txt" || fallback "NO_end_time"
-cat $my_json | jq | grep "model_type" | tail -n 1 >> "$my_temp/extract_qc_temp_2.txt" || fallback  "NO_model_type"
+cat $my_json | jq |grep "basecalling_model_version" | tail -n 1 >> "$my_temp/extract_qc_temp_2.txt" || fallback  "NO_basecalling_model_version"
 echo -e "barcoding_kits,$(cat "$my_json" | jq | grep "barcoding_configuration" -A 10 -B 10 |  grep -Pzo '(?s)barcoding_kits.*?\[.*?\]' | tail -z -n1 |  tr '\0' '\n' | grep -v "\[" | grep -v "\]" | tr '\n' ';')," >> $my_temp/extract_qc_temp_2.txt  || fallback "NO_barcoding_kits"
 echo "Experiment_path,${real_experiment_path}," >> "$my_temp/extract_qc_temp_2.txt"  || fallback "NO_experiment_path"
 sed  's/^[[:space:]]*//g' "$my_temp/extract_qc_temp_2.txt" | tr -d '"' > "$my_temp/extract_qc_temp_3.txt"

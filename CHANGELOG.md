@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+basecalling_model_version
+
+## v0.5.3 20260518
+### Added
+### Fixed
+### Changed
+- Switched to "basecalling_model_version" instead of "mode_name" to get the complete model version name
 ## v0.5.2 20260313
 
 ### Added
